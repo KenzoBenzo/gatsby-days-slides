@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Side Hustle | Gatsby Days</title>
+    <link rel="icon" href="./icon.png" sizes="16x16" type="image/png" />
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/custom.css" id="theme" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link
+      rel="stylesheet"
+      href="plugin/highlight/night-owl.css"
+      id="highlight-theme"
+    />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Using Gatsby to Launch Your Side Hustle For Free</h1>
+        </section>
+        <section>
+          <h2>I'm Makenna</h2>
+          <ul>
+            <li>
+              COO @
+              <img
+                src="./icon.png"
+                style="width: 20px; height: 20px; margin-bottom: 0;"
+              />
+              Meeshkan
+            </li>
+            <li>🇺🇸👉🇸🇮</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Democratizing the web</h2>
+          <ul>
+            <li>React for designers</li>
+            <li>No outright cost other than <strong>time</strong></li>
+            <li>Educational content is accessible</li>
+          </ul>
+        </section>
+
+        <section
+          data-background-iframe="https://befreakingkind.com/"
+          data-background-interactive
+        ></section>
+
+        <section
+          data-auto-animate
+          data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)"
+        >
+          <h2>Stack used to build</h2>
+          <ul>
+            <li class="fragment fade-right">Gatsby</li>
+            <li class="fragment fade-right">Chakra-ui + Netlify</li>
+            <li class="fragment fade-right">Printful + GraphCMS</li>
+            <li class="fragment fade-right">Stripe + Sendgrid</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Gatsby</h2>
+          <pre>
+						<code>
+  const createPages = async ({ graphql, actions: { createPage } }) => {
+  const {
+    data: {
+      cms: { products }
+    }
+  } = await graphql(`
+    {
+      cms {
+        products {
+          id
+        }
+      }
+    }
+  `);
+
+  products.forEach(({ id }) => {
+    createPage({
+      path: `/products/${id}`,
+      component: require.resolve(`../../templates/ProductPage.js`),
+      context: { id }
+      });
+    });
+  };
+
+  module.exports = createPages;
+						</code>
+					</pre>
+				</section>
+				
+				<section>
+					<h2>Gatsby</h2>
+					<pre>
+						<code>
+						</code>
+					</pre>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
