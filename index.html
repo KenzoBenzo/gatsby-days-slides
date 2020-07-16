@@ -24,7 +24,7 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>
+        <section data-auto-animate>
           <h1>Using Gatsby to Launch Your Side Hustle For Free</h1>
         </section>
         <section>
@@ -39,10 +39,11 @@
               Meeshkan
             </li>
             <li>🇺🇸👉🇸🇮</li>
+            <li>@KenzSmutz</li>
           </ul>
         </section>
 
-        <section>
+        <section data-auto-animate>
           <h2>Democratizing the web</h2>
           <ul>
             <li>React for designers</li>
@@ -69,10 +70,10 @@
           </ul>
         </section>
 
-        <section>
+        <section data-auto-animate>
           <h2>Gatsby</h2>
-          <pre>
-						<code>
+          <pre data-id="code">
+						<code class="hljs javascript" data-trim data-line-numbers="1,6|16-23">
   const createPages = async ({ graphql, actions: { createPage } }) => {
   const {
     data: {
@@ -100,14 +101,121 @@
   module.exports = createPages;
 						</code>
 					</pre>
-				</section>
-				
-				<section>
-					<h2>Gatsby</h2>
-					<pre>
-						<code>
-						</code>
-					</pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Chakra-ui</h2>
+          <ul>
+            <li>Accessible</li>
+            <li>Themeable</li>
+            <li>Fantastic base components</li>
+          </ul>
+          <img src="./chakraUI.png" style="border-radius: 2px;" />
+        </section>
+
+        <section data-auto-animate>
+          <h2>Print on demand</h2>
+          <ul>
+            <li>
+              <a href="https://www.printful.com/">💫 Printful</a>
+              - Focused on apparel. Has the broadest range of products.
+            </li>
+            <li>
+              <a href="https://pwinty.com/">Pwinty</a> - great for wall art
+              prints.
+            </li>
+            <li>
+              <a href="https://www.blurb.com/">Blurb</a> - specializes in
+              books/magazines.
+            </li>
+          </ul>
+
+          <pre data-id="code">
+            <code class="hljs javascript" data-trim data-line-numbers="3,7">
+  const resolvers = {
+    GraphCMS_Product: {
+      printfulProduct: {
+        type: `PrintfulProduct`,
+        resolve: ({ printfulProductId }, args, context, info) => {
+          return context.nodeModel.getNodeById({
+            id: printfulProductId,
+            type: `PrintfulProduct`,
+          });
+        },
+      },
+    },
+  }
+            </code>
+          </pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Accepting payments 💸</h2>
+          <ul>
+            <li>Stripe has incredible docs</li>
+            <li>Pay only once you have money coming in</li>
+            <li>Customizable form elements</li>
+          </ul>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Transactional emails ✉️</h2>
+          <ul>
+            <li>Sendgrid — dynamic templates</li>
+            <li>Serverless functions</li>
+          </ul>
+
+          <pre data-id="code">
+            <code class="hljs javascript" data-trim data-line-numbers="11-18">
+import sendgrid from "@sendgrid/mail";
+
+require("dotenv").config();
+
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+exports.handler = async (event, context) => {
+  let body = JSON.parse(event.body);
+
+  try {
+    await sendgrid.send({
+      to: body.email,
+      from: process.env.SENDGRID_OWNER_EMAIL,
+      templateId: process.env.SENDGRID_ORDER_CREATED_ID,
+      dynamic_template_data: {
+        orderID: body.id,
+        name: body.name,
+      },
+    });
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({ error: error.message });
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ error: "" }),
+  };
+};
+            </code>
+          </pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Hosting your store ☁️</h2>
+          <ul>
+            <li>Using Netlify has a generous free plan</li>
+            <li>
+              Configure your serverless functions with a
+              <code>netlify.toml</code> file
+            </li>
+            <li>Can also provide a *.netlify.app domain</li>
+          </ul>
+        </section>
+
+        <section data-auto-animate>
+          <h1 style="text-align: center;">Thank you!</h1>
+          <p>@KenzSmutz</p>
+          <p><a href="https://befreakingkind.com">befreakingkind.com</a></p>
+        </section>
       </div>
     </div>
 
@@ -116,13 +224,8 @@
     <script src="plugin/markdown/markdown.js"></script>
     <script src="plugin/highlight/highlight.js"></script>
     <script>
-      // More info about initialization & config:
-      // - https://revealjs.com/initialization/
-      // - https://revealjs.com/config/
       Reveal.initialize({
         hash: true,
-
-        // Learn about plugins: https://revealjs.com/plugins/
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
       });
     </script>
